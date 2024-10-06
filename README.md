@@ -58,7 +58,7 @@ func main() {
 }
 ```
 
-이 코드를 통해 프로그램을 실행하면 구조체의 정보가 출력됩니다.
+이 코드를 통해 프로그램을 실행하면 문자열이 출력됩니다.
 
 ### 3. `Makefile` 작성
 
@@ -117,7 +117,7 @@ clean:
 make run
 ```
 
-이 명령어를 통해 `main.go`에서 작성한 struct 정보를 확인할 수 있습니다.
+이 명령어를 통해 `main.go`에서 작성한 문자열을 확인할 수 있습니다.
 
 ### 4. 큰따옴표와 백쿼트를 사용하여 여러 줄 문자열 출력
 
@@ -130,10 +130,10 @@ package main
 import "fmt"
 
 func main() {
-	// 큰따옴표에서 려러 줄을 표현하려면 \n을 사용
+	// 큰따옴표에서 여러 줄을 표현하려면 \n을 사용
     poet1 := "죽는 날까지 하늘을 우러러\n한 점 부끄럼이 없기를,\n잎새에 이는 바람에도\n나는 괴로워했다.\n"
 
-	// 백쿼트에서 려러 줄 표현에 특수 문자가 필요 없음
+	// 백쿼트에서 여러 줄 표현에 특수 문자가 필요 없음
 	poet2 := `죽는 날까지 하늘을 우러러
 한 점 부끄럼이 없기를,
 잎새에 이는 바람에도
@@ -144,20 +144,78 @@ func main() {
 }
 ```
 
-이제 `make run` 명령을 사용하면 각 house의 정보가 출력됩니다.
+이제 `make run` 명령을 사용하면 문자열이 여러줄 출력됩니다.
 
 ```bash
 make run
 ```
 
 ### 5. UTF-8 문자코드
-
+Go는 UTF-8 문자코드를 표준 문자코드로 사용합니다.
 
 ### 6. rune 타입으로 한 문자담기
+문자 하나를 표현하는 데 rune 타입을 사용합니다. UTF-8은 한 글자가 1~3바이트 크기이기 때문에 UTF-8 문자값을 가지려면 3바이트가 필요합니다. 하지만 Go 언어 기본 타입에서 3바이트 정수 타입은 제공되지 않기 때문에 rune 타입은 4바이트 정수 타입인 int32 타입의 별칭입니다.
 
+```go
+// cmd/golang-string/main.go
+package main
+
+import "fmt"
+
+func main() {
+	var char rune = '한'
+
+	fmt.Printf("%T\n", char)	// char 타입 출력
+	fmt.Println(char)			// char 값 출력
+	fmt.Printf("%c\n", char)	// 문자 출력
+}
+```
+
+이제 `make run` 명령을 사용하면 char의 정보가 출력됩니다.
+
+```bash
+make run
+```
 
 ### 7. 문자열 순회
 
+문자열 순회하는 방법은 3가지가 있습니다.
+1. 인덱스를 사용한 바이트 단위 순회
+2. []rune으로 타입 변환 후 한 글자씩 순회
+3. range 키워드를 이용한 한 글자씩 순회
+
+```go
+// cmd/golang-string/main.go
+package main
+
+import "fmt"
+
+func main() {
+	str := "Hello 월드!"	// 한영이 섞인 문자열
+
+	for i := 0; i < len(str); i++ {
+		fmt.Printf(" 타입:%T 값:%d 문자값:%c\n", str[i], str[i], str[i])	
+	}
+
+	// []rune 으로 타입 변환 후 한 글자씩 순회하기
+	arr := []rune(str)
+
+	for i := 0; i < len(arr); i++ {
+		fmt.Printf(" 타입:%T 값:%d 문자값:%c\n", arr[i], arr[i], arr[i])	
+	}
+
+	// range 키워드를 이용해 한 글자씩 순회하기
+	for _, v := range str {
+		fmt.Printf(" 타입:%T 값:%d 문자값:%c\n", v, v, v)	
+	}
+}
+```
+
+이제 `make run` 명령을 사용하면 문자열 순회한 글자 정보가 출력됩니다.
+
+```bash
+make run
+```
 
 ### 8. 문자열 합치기
 
