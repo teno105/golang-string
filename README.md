@@ -371,3 +371,91 @@ make run
 
 ### 12. 문자열 합산
 
+Go 언어에서 string 타입 간 합 연산을 지원합니다. 한 연산을 하면 두 문자열이 하나로 합쳐지게 됩니다.
+
+```go
+// cmd/golang-string/main.go
+package main
+
+import (
+	"fmt"
+	"unsafe"
+)
+
+func main() {
+	var str string = "Hello"
+	addr1 := unsafe.StringData(str)
+	str += " World"
+	addr2 := unsafe.StringData(str)
+	str += " Welcom!"
+	addr3 := unsafe.StringData(str)
+
+	fmt.Println(str)
+	fmt.Printf("addr1:\t%p\n", addr1)
+	fmt.Printf("addr2:\t%p\n", addr2)
+	fmt.Printf("addr3:\t%p\n", addr3)
+}
+```
+
+이제 `make run` 명령을 사용하면 문자열의 메모리 주솟값이 다르게 출력됩니다.
+
+```bash
+make run
+```
+
+Go 언어는 기존 문자열 메모리 공간을 건드리지 않고, 새로운 메모리 공간을 만들어서 두 문자열을 합치기 때문에 string 합 연산 이후 주솟값이 변경됩니다. 따라서 문자열 불변 원칙이 준수됩니다.
+
+### 12. strings.Builder 사용
+
+string 합 연산을 빈번하게 하면 메모리가 낭비됩니다. 그래서 string 합 연산을 빈번하게 사용하는 경우에는 strings 패키지의 Builder를 이용해서 메모리 낭비를 줄일 수 있습니다.
+
+```go
+// cmd/golang-string/main.go
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+func ToUpper1(str string) string {
+	var rst string
+	for _, c := range str {
+		if c >= 'a' && c <= 'z' {
+			rst += string('A' + (c - 'a'))	// 합 연산 사용
+		} else {
+			rst += string(c)
+		}
+	}
+	return rst
+}
+
+func ToUpper2(str string) string {
+	var builder strings.Builder
+	for _, c := range str {
+		if c >= 'a' && c <= 'z' {
+			builder.WriteRune('A' + (c - 'a'))	// strings.Builder 사용
+		} else {
+			builder.WriteRune(c)
+		}
+	}
+	return builder.String()
+}
+
+
+func main() {
+	var str string = "Hello World"
+
+	fmt.Println(ToUpper1(str))
+	fmt.Println(ToUpper2(str))
+}
+```
+
+이제 `make run` 명령을 사용하면 문자열이 대문자로 변경되어 출력됩니다.
+
+```bash
+make run
+```
+
+ToUpper2()는 strings.Builder 객체를 이용해서 문자를 더합니다.
+strings.Builder는 내부에 슬라이스를 가지고 있기 때문에 WriteRune() 메서드를 통해 문자를 더할 때 매번 메모리를 새로 생성하지 않고 기존 메모리 공간에 빈자리가 있으면 그냥 더하게 됩니다. 그래서 메모리 공간 낭비를 없앨 수 있습니다.
