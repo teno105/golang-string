@@ -335,5 +335,39 @@ func main() {
 make run
 ```
 
-### 11. 문자열 합산
+### 11. 문자열 불변
+
+문자열은 불변(immutable)입니다. string 타입이 가리키는 문자열의 일부만 변경 할 수 없다는 말입니다.
+아래의 예제를 통해 str과 slice가 다르 ㄴ메모리 주소를 가리키고 있는지 확인할 수 있습니다.
+
+```go
+// cmd/golang-string/main.go
+package main
+
+import (
+	"fmt"
+	"unsafe"
+)
+
+func main() {
+    var str string = "Hello World"
+	var slice []byte = []byte(str)
+
+    fmt.Printf("str:=t%p\n", unsafe.StringData(str))
+	fmt.Printf("slice:=t%p\n", unsafe.SliceData(slice))
+
+    slice[2] = 'a'
+
+    fmt.Println(str)
+    fmt.Printf("%s\n", slice)
+}
+```
+
+이제 `make run` 명령을 사용하면 문자열이 서로 다른 주소값을 가리키는 것이 출력됩니다.
+
+```bash
+make run
+```
+
+### 12. 문자열 합산
 
