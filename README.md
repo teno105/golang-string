@@ -286,6 +286,54 @@ make run
 
 ### 10. 문자열 구조
 
+string 타입은 Go 언어에서 제공하는 내장 타입으로 그 내부 구현은 감쳐줘 있습니다.
+하지만 StringHeader 구조체로 강제 타입 변환을 하면 내부 구현을 엿볼수 있습니다.
+```go
+type StringHeader struct {
+	Data	uintptr
+	Len	int
+}
+```
+
+string은 필드가 2개인 구조체입니다.
+첫 번째 필드 Data는 uintptr 타입으로 문자열의 데이터가 있는 메모리 주소를 나타내는 일종의 포인터입니다.
+두 번째 필드 Len은 int타입으로 문자열 길이를 나타냅니다.
+
+```go
+// cmd/golang-string/main.go
+package main
+
+import (
+	"fmt"
+	"unsafe"
+)
+
+type StringHeader struct {
+	Data	uintptr
+	Len	int
+}
+
+func main() {
+    str1 := "안녕하세요. 한글 문자열입니다."
+	str2 := str1
+
+	fmt.Printf("str1")
+	fmt.Printf("\n")
+	fmt.Printf("str2")
+
+	stringHeader1 := (*StringHeader)(unsafe.Pointer(&str1))
+	stringHeader2 := (*StringHeader)(unsafe.Pointer(&str2))	
+
+	fmt.Println(stringHeader1)
+	fmt.Println(stringHeader2)
+}
+```
+
+이제 `make run` 명령을 사용하면 문자열 정보가 출력됩니다.
+
+```bash
+make run
+```
 
 ### 11. 문자열 합산
 

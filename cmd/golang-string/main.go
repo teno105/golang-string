@@ -1,23 +1,26 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"unsafe"
+)
+
+type StringHeader struct {
+	Data	uintptr
+	Len	int
+}
 
 func main() {
-    str1 := "Hello"
-	str2 := "Hell"
-	str3 := "Hello"
+    str1 := "안녕하세요. 한글 문자열입니다."
+	str2 := str1
 
-	fmt.Printf("%s == %s : %v\n", str1, str2, str1 == str2)
-	fmt.Printf("%s != %s : %v\n", str1, str2, str1 != str2)
-	fmt.Printf("%s == %s : %v\n", str1, str3, str1 == str2)
-	fmt.Printf("%s != %s : %v\n", str1, str3, str1 != str3)
+	fmt.Printf("str1")
+	fmt.Printf("\n")
+	fmt.Printf("str2")
 
-	str4 := "BBB"
-	str5 := "aaaaAAA"
-	str6 := "BBAD"
-	str7 := "ZZZ"
+	stringHeader1 := (*StringHeader)(unsafe.Pointer(&str1))
+	stringHeader2 := (*StringHeader)(unsafe.Pointer(&str2))	
 
-	fmt.Printf("%s > %s : %v\n", str4, str5, str4 > str5)
-	fmt.Printf("%s < %s : %v\n", str4, str6, str4 < str6)
-	fmt.Printf("%s <= %s : %v\n", str4, str7, str4 <= str7)
+	fmt.Println(stringHeader1)
+	fmt.Println(stringHeader2)
 }
