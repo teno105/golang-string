@@ -48,12 +48,12 @@ import "fmt"
 
 func main() {
 	// 큰따옴표로 묶으면 특수 문자가 동작합니다.
-    str1 := "Hello\t'World'\n"
+	str1 := "Hello\t'World'\n"
 
 	// 백쿼트로 묶으면 특수 문자가 동작하지 않습니다.
 	str2 := `Go is "awesome"!\nGo is simple and\t'powerful'`
 
-    fmt.Printf(str1)
+	fmt.Printf(str1)
 	fmt.Printf(str2)
 }
 ```
@@ -131,7 +131,7 @@ import "fmt"
 
 func main() {
 	// 큰따옴표에서 여러 줄을 표현하려면 \n을 사용
-    poet1 := "죽는 날까지 하늘을 우러러\n한 점 부끄럼이 없기를,\n잎새에 이는 바람에도\n나는 괴로워했다.\n"
+    	poet1 := "죽는 날까지 하늘을 우러러\n한 점 부끄럼이 없기를,\n잎새에 이는 바람에도\n나는 괴로워했다.\n"
 
 	// 백쿼트에서 여러 줄 표현에 특수 문자가 필요 없음
 	poet2 := `죽는 날까지 하늘을 우러러
@@ -139,7 +139,7 @@ func main() {
 잎새에 이는 바람에도
 나는 괴로워했다.`
 
-    fmt.Printf(poet1)
+	fmt.Printf(poet1)
 	fmt.Printf(poet2)
 }
 ```
@@ -228,13 +228,13 @@ package main
 import "fmt"
 
 func main() {
-    str1 := "Hello"
+    	str1 := "Hello"
 	str2 := "World"
 
 	str3 := str1 + " " + str3
 	fmt.Println(str3)
 
-    str1 += " " + str3
+    	str1 += " " + str3
 	fmt.Println(str1)
 }
 ```
@@ -258,7 +258,7 @@ package main
 import "fmt"
 
 func main() {
-    str1 := "Hello"
+    	str1 := "Hello"
 	str2 := "Hell"
 	str3 := "Hello"
 
