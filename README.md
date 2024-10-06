@@ -35,10 +35,10 @@ go mod init golang-string
 mkdir -p cmd/golang-string
 ```
 
-### 2. 포인터 변수 선언
+### 2. 큰따옴표와 백쿼트를 사용하여 문자열 출력
 
 `cmd/golang-string/` 디렉터리 아래에 `main.go` 파일을 생성하고,
-struct 를 선언 및 활용하는 코드를 작성합니다.
+문자열을 활용하는 코드를 작성합니다.
 
 ```go
 // cmd/golang-string/main.go
