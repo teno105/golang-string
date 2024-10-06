@@ -314,7 +314,7 @@ type StringHeader struct {
 }
 
 func main() {
-    str1 := "안녕하세요. 한글 문자열입니다."
+    	str1 := "안녕하세요. 한글 문자열입니다."
 	str2 := str1
 
 	fmt.Printf("str1")
@@ -350,16 +350,16 @@ import (
 )
 
 func main() {
-    var str string = "Hello World"
+    	var str string = "Hello World"
 	var slice []byte = []byte(str)
 
-    fmt.Printf("str:=t%p\n", unsafe.StringData(str))
+    	fmt.Printf("str:=t%p\n", unsafe.StringData(str))
 	fmt.Printf("slice:=t%p\n", unsafe.SliceData(slice))
 
-    slice[2] = 'a'
+    	slice[2] = 'a'
 
-    fmt.Println(str)
-    fmt.Printf("%s\n", slice)
+    	fmt.Println(str)
+    	fmt.Printf("%s\n", slice)
 }
 ```
 
