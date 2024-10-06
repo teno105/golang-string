@@ -2,18 +2,37 @@ package main
 
 import (
 	"fmt"
-	"unsafe"
+	"strings"
 )
 
+func ToUpper1(str string) string {
+	var rst string
+	for _, c := range str {
+		if c >= 'a' && c <= 'z' {
+			rst += string('A' + (c - 'a'))	// 합 연산 사용
+		} else {
+			rst += string(c)
+		}
+	}
+	return rst
+}
+
+func ToUpper2(str string) string {
+	var builder strings.Builder
+	for _, c := range str {
+		if c >= 'a' && c <= 'z' {
+			builder.WriteRune('A' + (c - 'a'))	// strings.Builder 사용
+		} else {
+			builder.WriteRune(c)
+		}
+	}
+	return builder.String()
+}
+
+
 func main() {
-    var str string = "Hello World"
-	var slice []byte = []byte(str)
+	var str string = "Hello World"
 
-    fmt.Printf("str:=t%p\n", unsafe.StringData(str))
-	fmt.Printf("slice:=t%p\n", unsafe.SliceData(slice))
-
-    slice[2] = 'a'
-
-    fmt.Println(str)
-    fmt.Printf("%s\n", slice)
+	fmt.Println(ToUpper1(str))
+	fmt.Println(ToUpper2(str))
 }
