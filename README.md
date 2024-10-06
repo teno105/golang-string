@@ -219,9 +219,70 @@ make run
 
 ### 8. 문자열 합치기
 
+문자열은 +과 += 연산을 사용해서 문자열을 이을 수 있습니다.
+
+```go
+// cmd/golang-string/main.go
+package main
+
+import "fmt"
+
+func main() {
+    str1 := "Hello"
+	str2 := "World"
+
+	str3 := str1 + " " + str3
+	fmt.Println(str3)
+
+    str1 += " " + str3
+	fmt.Println(str1)
+}
+```
+
+이제 `make run` 명령을 사용하면 문자열이 출력됩니다.
+
+```bash
+make run
+```
+
 
 ### 9. 문자열 비교하기, 대소 비교하기
 
+비교하기 : 연산자 ==, !=를 사용해서 문자열이 같은지 같지 않은지 비교합니다.
+대소 비교하기 : >,<,>=,<= 연산자를 이용해서 비교합니다. 문자열 길이와 상관없이 앞글자부터 (같은 위치에 있는 글자끼리) 비교합니다.
+
+```go
+// cmd/golang-string/main.go
+package main
+
+import "fmt"
+
+func main() {
+    str1 := "Hello"
+	str2 := "Hell"
+	str3 := "Hello"
+
+	fmt.Printf("%s == %s : %v\n", str1, str2, str1 == str2)
+	fmt.Printf("%s != %s : %v\n", str1, str2, str1 != str2)
+	fmt.Printf("%s == %s : %v\n", str1, str3, str1 == str2)
+	fmt.Printf("%s != %s : %v\n", str1, str3, str1 != str3)
+
+	str4 := "BBB"
+	str5 := "aaaaAAA"
+	str6 := "BBAD"
+	str7 := "ZZZ"
+
+	fmt.Printf("%s > %s : %v\n", str4, str5, str4 > str5)
+	fmt.Printf("%s < %s : %v\n", str4, str6, str4 < str6)
+	fmt.Printf("%s <= %s : %v\n", str4, str7, str4 <= str7)
+}
+```
+
+이제 `make run` 명령을 사용하면 문자열 비교 결과가 출력됩니다.
+
+```bash
+make run
+```
 
 ### 10. 문자열 구조
 
